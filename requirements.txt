@@ -6,6 +6,7 @@ chardet==4.0.0
 dataclasses==0.6
 deprecation==2.1.0
 Django==3.2.11
+django-cors-headers==4.1.0
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 drf-yasg==1.21.6
