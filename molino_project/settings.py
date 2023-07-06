@@ -168,3 +168,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
 AUTHENTICATION_BACKENDS = ['apps.authentication.email_back.EmailBackend']
+
+STATICFILES_DIRS = [
+    # Otras rutas de archivos estáticos...
+    ('drf-yasg/redoc-old', '/ruta/al/archivo/redoc.min.map'),
+]
+
