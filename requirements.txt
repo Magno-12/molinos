@@ -1,5 +1,6 @@
 asgiref==3.7.2
 attrs==23.1.0
+Brotli==1.0.9
 certifi==2023.5.7
 chardet==4.0.0
 dataclasses==0.6
@@ -9,6 +10,7 @@ djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 drf-yasg==1.21.6
 gotrue==0.2.0
+gunicorn==20.1.0
 h11==0.14.0
 httpcore==0.12.3
 httpx==0.16.1
@@ -37,3 +39,4 @@ typing_extensions==4.7.0
 uritemplate==4.1.1
 urllib3==1.26.16
 websockets==9.1
+whitenoise==6.5.0
