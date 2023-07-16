@@ -222,3 +222,55 @@ class CuentasProveedores(models.Model):
     class Meta:
         verbose_name = 'Cuenta Proveedor'
         verbose_name_plural = 'Cuentas Proveedores'
+
+
+class RegistroFactura(models.Model):
+    factura_id = models.AutoField(primary_key=True)
+    fecha = models.DateField()
+    cliente = models.CharField(max_length=100)
+    cc_nit = models.CharField(max_length=20)
+    valor = models.DecimalField(max_digits=20, decimal_places=2)
+    tipo = models.CharField(max_length=10)
+    forma_de_pago = models.CharField(max_length=20)
+    telefono = models.CharField(max_length=30)
+    correo_electronico = models.EmailField()
+
+    class Meta:
+        verbose_name = 'Registro de Factura'
+        verbose_name_plural = 'Registros de Facturas'
+
+    def __str__(self):
+        return f'Factura {self.factura_id} - Cliente: {self.cliente}'
+    
+
+class RegistroCredito(models.Model):
+    fecha = models.DateField()
+    cliente = models.CharField(max_length=100)
+    cc_nit = models.CharField(max_length=20)
+    telefono = models.CharField(max_length=30)
+    detalles = models.CharField(max_length=50)
+    valor = models.DecimalField(max_digits=20, decimal_places=2)
+    abono = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    estado = models.CharField(max_length=10)
+    forma_de_pago = models.CharField(max_length=20)
+    tasa_interes = models.DecimalField(max_digits=20, decimal_places=2)
+    fecha_vencimiento = models.DateField()
+
+    class Meta:
+        verbose_name = 'Registro de Crédito'
+        verbose_name_plural = 'Registros de Créditos'
+
+
+class AbonosCredito(models.Model):
+    credito = models.ForeignKey(RegistroCredito, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=30)
+    correo_electronico = models.EmailField()
+    cc_nit = models.CharField(max_length=20)
+    forma_de_pago = models.CharField(max_length=20)
+    valor_abono = models.DecimalField(max_digits=20, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        self.credito.abono += self.valor_abono
+        self.credito.save()
+        super().save(*args, **kwargs)
