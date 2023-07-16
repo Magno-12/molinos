@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -175,3 +176,13 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
 
+ACCESS_TOKEN_EXPIRATION_MINUTES = 60
+REFRESH_TOKEN_EXPIRATION_DAYS = 30
+
+access_token_expiration = datetime.timedelta(minutes=ACCESS_TOKEN_EXPIRATION_MINUTES)
+refresh_token_expiration = datetime.timedelta(days=REFRESH_TOKEN_EXPIRATION_DAYS)
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': access_token_expiration,
+    'JWT_REFRESH_EXPIRATION_DELTA': refresh_token_expiration,
+}
