@@ -172,8 +172,9 @@ AUTH_USER_MODEL = 'users.User'
 
 AUTHENTICATION_BACKENDS = ['apps.authentication.email_back.EmailBackend']
 
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    '*',
+    'http://localhost:3000',
 ]
 
 ACCESS_TOKEN_EXPIRATION_MINUTES = 60
