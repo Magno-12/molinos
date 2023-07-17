@@ -172,10 +172,8 @@ AUTH_USER_MODEL = 'users.User'
 
 AUTHENTICATION_BACKENDS = ['apps.authentication.email_back.EmailBackend']
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'https://practicas-eight.vercel.app/'
-]
+CORS_ORIGIN_ALLOW_ALL = 'True'
+CORS_ALLOW_CREDENTIALS = 'True'
 
 ACCESS_TOKEN_EXPIRATION_MINUTES = 60
 REFRESH_TOKEN_EXPIRATION_DAYS = 30
