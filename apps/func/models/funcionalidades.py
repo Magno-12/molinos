@@ -224,30 +224,39 @@ class CuentasProveedores(models.Model):
         verbose_name_plural = 'Cuentas Proveedores'
 
 
-class RegistroFactura(models.Model):
-    factura_id = models.AutoField(primary_key=True)
-    fecha = models.DateField()
-    cliente = models.CharField(max_length=100)
-    cc_nit = models.CharField(max_length=20)
-    valor = models.DecimalField(max_digits=20, decimal_places=2)
-    tipo = models.CharField(max_length=10)
-    forma_de_pago = models.CharField(max_length=20)
+class Cliente(models.Model):
+    nombre = models.CharField(max_length=100, db_index=True)
+    cc_nit = models.CharField(max_length=20, unique=True)
     telefono = models.CharField(max_length=30)
     correo_electronico = models.EmailField()
 
     class Meta:
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes'
+
+
+class RegistroFactura(models.Model):
+    factura_id = models.AutoField(primary_key=True)
+    fecha = models.DateField()
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    valor = models.DecimalField(max_digits=20, decimal_places=2)
+    tipo = models.CharField(max_length=10)
+    forma_de_pago = models.CharField(max_length=20)
+
+    class Meta:
         verbose_name = 'Registro de Factura'
         verbose_name_plural = 'Registros de Facturas'
+        indexes = [
+            models.Index(fields=['fecha', 'cliente', 'forma_de_pago']),
+        ]
 
     def __str__(self):
-        return f'Factura {self.factura_id} - Cliente: {self.cliente}'
-    
+        return f'Factura {self.factura_id} - Cliente: {self.cliente.nombre}'
+
 
 class RegistroCredito(models.Model):
     fecha = models.DateField()
-    cliente = models.CharField(max_length=100)
-    cc_nit = models.CharField(max_length=20)
-    telefono = models.CharField(max_length=30)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     detalles = models.CharField(max_length=50)
     valor = models.DecimalField(max_digits=20, decimal_places=2)
     abono = models.DecimalField(max_digits=20, decimal_places=2, default=0)
@@ -259,14 +268,14 @@ class RegistroCredito(models.Model):
     class Meta:
         verbose_name = 'Registro de Crédito'
         verbose_name_plural = 'Registros de Créditos'
+        indexes = [
+            models.Index(fields=['fecha', 'cliente', 'estado', 'forma_de_pago']),
+        ]
 
 
 class AbonosCredito(models.Model):
-    credito = models.ForeignKey(RegistroCredito, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=100)
-    telefono = models.CharField(max_length=30)
-    correo_electronico = models.EmailField()
-    cc_nit = models.CharField(max_length=20)
+    credito = models.ForeignKey(RegistroCredito, related_name='abonos', on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     forma_de_pago = models.CharField(max_length=20)
     valor_abono = models.DecimalField(max_digits=20, decimal_places=2)
 

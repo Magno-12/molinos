@@ -16,7 +16,7 @@ class LoginSerializer(serializers.Serializer):
             'id': user.id,
             'username': user.username,
             'email': user.email,
-            'role': 'admin'
+            'role': user.role,
         }
     
 
