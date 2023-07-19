@@ -18,32 +18,22 @@ class ClienteViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.Ge
     """
     retrieve:
     Return a cliente instance.
-
-    ---
     
     list:
     Return all clientes, ordered by most recently joined.
-
-    ---
     
     create:
     Create a new cliente.
-
-    ---
     
     Error Messages:
     - 400 Bad Request: Invalid data was sent.
     - 404 Not Found: The requested cliente does not exist.
-
-    ---
     
     Body:
     - nombre: The name of the cliente.
     - cc_nit: The cc_nit of the cliente.
     - telefono: The phone number of the cliente.
     - correo_electronico: The email of the cliente.
-
-    ---
     
     Response:
     - id: The id of the cliente.
@@ -62,24 +52,16 @@ class RegistroFacturaViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, vie
     """
     retrieve:
     Return a factura instance.
-
-    ---
     
     list:
     Return all facturas, ordered by most recently joined.
-
-    ---
     
     create:
     Create a new factura.
-
-    ---
     
     Error Messages:
     - 400 Bad Request: Invalid data was sent.
     - 404 Not Found: The requested factura does not exist.
-
-    ---
     
     Body:
     - fecha: The date of the factura.
@@ -87,8 +69,6 @@ class RegistroFacturaViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, vie
     - valor: The value of the factura.
     - tipo: The type of the factura.
     - forma_de_pago: The payment method of the factura.
-
-    ---
     
     Response:
     - factura_id: The id of the factura.
@@ -108,24 +88,16 @@ class RegistroCreditoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, vie
     """
     retrieve:
     Return a credito instance.
-
-    ---
     
     list:
     Return all creditos, ordered by most recently joined.
-
-    ---
     
     create:
     Create a new credito.
-
-    ---
     
     Error Messages:
     - 400 Bad Request: Invalid data was sent.
     - 404 Not Found: The requested credito does not exist.
-
-    ---
     
     Body:
     - fecha: The date of the credito.
@@ -137,8 +109,6 @@ class RegistroCreditoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, vie
     - forma_de_pago: The payment method of the credito.
     - tasa_interes: The interest rate of the credito.
     - fecha_vencimiento: The due date of the credito.
-
-    ---
     
     Response:
     - id: The id of the credito.
@@ -162,32 +132,22 @@ class AbonosCreditoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, views
     """
     retrieve:
     Return a abono instance.
-
-    ---
     
     list:
     Return all abonos, ordered by most recently joined.
-
-    ---
     
     create:
     Create a new abono.
-
-    ---
     
     Error Messages:
     - 400 Bad Request: Invalid data was sent.
     - 404 Not Found: The requested abono does not exist.
-
-    ---
     
     Body:
     - credito: The id of the credito.
     - cliente: The id of the cliente.
     - forma_de_pago: The payment method of the abono.
     - valor_abono: The value of the abono.
-
-    ---
     
     Response:
     - id: The id of the abono.
