@@ -242,6 +242,7 @@ class RegistroFactura(models.Model):
     valor = models.DecimalField(max_digits=20, decimal_places=2)
     tipo = models.CharField(max_length=10)
     forma_de_pago = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=100)
 
     class Meta:
         verbose_name = 'Registro de Factura'

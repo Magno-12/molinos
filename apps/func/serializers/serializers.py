@@ -17,13 +17,22 @@ class ClienteSerializer(serializers.ModelSerializer):
 class RegistroFacturaSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroFactura
-        fields = '__all__'
+        fields = ("cliente", "valor", "tipo", "forma_de_pago")
 
 
 class RegistroCreditoSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroCredito
-        fields = '__all__'
+        fields = (
+            "cliente", 
+            "detalles", 
+            "valor", 
+            "abono", 
+            "estado", 
+            "forma_de_pago", 
+            "tasa_interes", 
+            "fecha_vencimiento"
+        )
 
 
 class AbonosCreditoSerializer(serializers.ModelSerializer):
