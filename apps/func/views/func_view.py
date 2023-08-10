@@ -142,18 +142,11 @@ class InventarioMaquinariaViewSet(GenericViewSet):
     serializer_class = InventarioMaquinariaSerializer
 
     def create(self, request):
-        if isinstance(request.data, list):
-            serializers = self.serializer_class(data=request.data, many=True)
-            if serializers.is_valid():
-                serializers.save()
-                return Response(serializers.data, status=status.HTTP_201_CREATED)
-            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            serializer = self.serializer_class(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request):
         try:
@@ -169,7 +162,8 @@ class ItemFacturaViewSet(GenericViewSet):
     serializer_class = ItemFacturaSerializer
 
     def create(self, request):
-        serializer = self.serializer_class(data=request.data)
+        many = isinstance(request.data, list)
+        serializer = self.serializer_class(data=request.data, many=many)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
