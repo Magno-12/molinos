@@ -104,8 +104,8 @@ WSGI_APPLICATION = 'molino_project.wsgi.application'
 #     }
 # }
 
-SUPABASE_URL = 'https://kyxwrbphxayhenwkmwpt.supabase.co'
-SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5eHdyYnBoeGF5aGVud2ttd3B0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg0MDE0OTIsImV4cCI6MjAwMzk3NzQ5Mn0.P5jvjLebC8_-wF_DJ8noaM1Jnf5E8IwsINj1BHSOwCU'
+SUPABASE_URL = 'https://deesrbfhergdyysihyvs.supabase.co'
+SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlZXNyYmZoZXJnZHl5c2loeXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTE2MzU1MjYsImV4cCI6MjAwNzIxMTUyNn0.bwNyhonGOtf2FJabPUA68aVxFoG203XVGkf6YN9yPYo'
 
 DATABASES = {
     'default': {
@@ -113,7 +113,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'ssSALvDu04Eg',
-        'HOST': 'db.kyxwrbphxayhenwkmwpt.supabase.co',
+        'HOST': 'db.deesrbfhergdyysihyvs.supabase.co',
         'PORT': '5432',
     }
 }

@@ -1,4 +1,5 @@
 from django.db.models import Sum
+from datetime import datetime
 
 from apps.func.models.funcionalidades import (
     CuadroEstadistico, InformeComportamiento, CostosProduccion, VentasDia, 
@@ -10,7 +11,9 @@ from apps.func.models.funcionalidades import (
     )
 
 def calcular_ventas_por_mes():
-    ventas_por_mes = CuadroEstadistico.objects.aggregate(total_ventas=Sum('ventas_por_mes'))
+    mes_actual = datetime.now().month
+    ventas_por_mes = CuadroEstadistico.objects.filter(mes__lte=mes_actual).\
+        aggregate(total_ventas=Sum('ventas_por_mes'))
     return ventas_por_mes['total_ventas'] or 0
 
 def calcular_ponderado_materia_prima():
@@ -26,7 +29,8 @@ def calcular_costos_produccion():
     return costos_produccion['total_costos'] or 0
 
 def calcular_total_maquinaria_equipo():
-    total_maquinaria_equipo = InformeComportamiento.objects.aggregate(total_maquinaria=Sum('total_maquinaria_equipo'))
+    total_maquinaria_equipo = InformeComportamiento.objects.\
+        aggregate(total_maquinaria=Sum('total_maquinaria_equipo'))
     return total_maquinaria_equipo['total_maquinaria'] or 0
 
 def calcular_total_materia_prima():
@@ -34,15 +38,18 @@ def calcular_total_materia_prima():
     return total_materia_prima['total_materia'] or 0
 
 def calcular_total_inventario_maquinaria_equipo():
-    total_inventario_maquinaria_equipo = InformeComportamiento.objects.aggregate(total_inventario=Sum('total_inventario_maquinaria_equipo'))
+    total_inventario_maquinaria_equipo = InformeComportamiento.objects.\
+        aggregate(total_inventario=Sum('total_inventario_maquinaria_equipo'))
     return total_inventario_maquinaria_equipo['total_inventario'] or 0
 
 def calcular_total_inventario_anterior():
-    total_inventario_anterior = InformeComportamiento.objects.aggregate(total_anterior=Sum('total_inventario_anterior'))
+    total_inventario_anterior = InformeComportamiento.objects.\
+        aggregate(total_anterior=Sum('total_inventario_anterior'))
     return total_inventario_anterior['total_anterior'] or 0
 
 def calcular_costos_produccion_mes(mes):
-    costos_produccion = CostosProduccion.objects.filter(mes=mes).aggregate(total_costos=Sum('costo_produccion'))
+    costos_produccion = CostosProduccion.objects.filter(mes=mes).\
+        aggregate(total_costos=Sum('costo_produccion'))
     return costos_produccion['total_costos'] or 0
 
 def calcular_total_ventas_dia_maquinaria(maquinaria):
@@ -54,7 +61,8 @@ def calcular_acumulado_ingresos():
     return acumulado_ingresos['acumulado'] or 0
 
 def calcular_total_gastos_taller(taller):
-    total_gastos_taller = GastosTaller.objects.filter(taller=taller).aggregate(total_gastos=Sum('total_compras_gastos'))
+    total_gastos_taller = GastosTaller.objects.filter(taller=taller).\
+        aggregate(total_gastos=Sum('total_compras_gastos'))
     return total_gastos_taller['total_gastos'] or 0
 
 def calcular_acumulado_gastos():
@@ -75,11 +83,13 @@ def calcular_saldo_caja_anticipos():
 
 def calcular_comparativo_ingresos_compras_mes(mes):
     ingresos = VentasDia.objects.filter(fecha__month=mes).aggregate(total_ingresos=Sum('total'))
-    compras = GastosTaller.objects.filter(fecha__month=mes).aggregate(total_compras=Sum('total_compras_gastos'))
+    compras = GastosTaller.objects.filter(fecha__month=mes).\
+        aggregate(total_compras=Sum('total_compras_gastos'))
     return ingresos['total_ingresos'] or 0, compras['total_compras'] or 0
 
 def calcular_total_reintegros_devoluciones():
-    total_reintegros_devoluciones = CajaSkyCreditoSky.objects.aggregate(total_reintegros=Sum('reintegros_devoluciones'))
+    total_reintegros_devoluciones = CajaSkyCreditoSky.objects.\
+        aggregate(total_reintegros=Sum('reintegros_devoluciones'))
     return total_reintegros_devoluciones['total_reintegros'] or 0
 
 def calcular_total_consignaciones():
@@ -91,7 +101,8 @@ def calcular_total_prestamos():
     return total_prestamos['total_prestamos'] or 0
 
 def calcular_total_reintegros_entre_cajas():
-    total_reintegros_entre_cajas = CajaSkyCreditoSky.objects.aggregate(total_reintegros_entre_cajas=Sum('reintegros_entre_cajas'))
+    total_reintegros_entre_cajas = CajaSkyCreditoSky.objects.\
+        aggregate(total_reintegros_entre_cajas=Sum('reintegros_entre_cajas'))
     return total_reintegros_entre_cajas['total_reintegros_entre_cajas'] or 0
 
 def calcular_cartera_pagare():
@@ -111,29 +122,36 @@ def calcular_total_cuentas_por_pagar():
     return total_cuentas_por_pagar['total_cuentas'] or 0
 
 def calcular_total_salidas_materia_prima(material):
-    total_salidas_materia_prima = SalidaMateriaPrima.objects.filter(material=material).aggregate(total_salidas=Sum('cantidad'))
+    total_salidas_materia_prima = SalidaMateriaPrima.objects.filter(material=material).\
+        aggregate(total_salidas=Sum('cantidad'))
     return total_salidas_materia_prima['total_salidas'] or 0
 
 def calcular_total_inventario_stock(material):
-    total_inventario_stock = InventarioStock.objects.filter(material=material).aggregate(total_inventario=Sum('cantidad'))
+    total_inventario_stock = InventarioStock.objects.filter(material=material).\
+        aggregate(total_inventario=Sum('cantidad'))
     return total_inventario_stock['total_inventario'] or 0
 
 def calcular_total_entradas_materia_prima(material):
-    total_entradas_materia_prima = EntradaMateriaPrima.objects.filter(material=material).aggregate(total_entradas=Sum('cantidad'))
+    total_entradas_materia_prima = EntradaMateriaPrima.objects.filter(material=material).\
+        aggregate(total_entradas=Sum('cantidad'))
     return total_entradas_materia_prima['total_entradas'] or 0
 
 def calcular_total_inventario_maquinaria(maquinaria):
-    total_inventario_maquinaria = InventarioMaquinaria.objects.filter(maquinaria=maquinaria).aggregate(total_inventario=Sum('cantidad'))
+    total_inventario_maquinaria = InventarioMaquinaria.objects.filter(maquinaria=maquinaria).\
+        aggregate(total_inventario=Sum('cantidad'))
     return total_inventario_maquinaria['total_inventario'] or 0
 
 def calcular_total_otro_inventario_stock():
-    total_otro_inventario_stock = OtrosInventarioStockEntra.objects.aggregate(total_inventario=Sum('cantidad'))
+    total_otro_inventario_stock = OtrosInventarioStockEntra.objects.\
+        aggregate(total_inventario=Sum('cantidad'))
     return total_otro_inventario_stock['total_inventario'] or 0
 
 def calcular_total_pedidos_materia_prima(material):
-    total_pedidos_materia_prima = PedidoMateriaPrima.objects.filter(material=material).aggregate(total_pedidos=Sum('cantidad'))
+    total_pedidos_materia_prima = PedidoMateriaPrima.objects.filter(material=material).\
+        aggregate(total_pedidos=Sum('cantidad'))
     return total_pedidos_materia_prima['total_pedidos'] or 0
 
 def calcular_total_cuentas_proveedores(proveedor):
-    total_cuentas_proveedores = CuentasProveedores.objects.filter(proveedor=proveedor).aggregate(total_cuentas=Sum('saldo'))
+    total_cuentas_proveedores = CuentasProveedores.objects.filter(proveedor=proveedor).\
+        aggregate(total_cuentas=Sum('saldo'))
     return total_cuentas_proveedores['total_cuentas'] or 0

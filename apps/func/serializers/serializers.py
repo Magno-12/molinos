@@ -1,10 +1,12 @@
 from rest_framework import serializers
 
 from apps.func.models.funcionalidades import (
-    Cliente, 
-    RegistroFactura, 
-    RegistroCredito, 
-    AbonosCredito
+    Cliente,
+    RegistroFactura,
+    RegistroCredito,
+    AbonosCredito,
+    ItemFactura,
+    InventarioMaquinaria
 )
 
 
@@ -38,4 +40,15 @@ class RegistroCreditoSerializer(serializers.ModelSerializer):
 class AbonosCreditoSerializer(serializers.ModelSerializer):
     class Meta:
         model = AbonosCredito
+        fields = '__all__'
+
+
+class InventarioMaquinariaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InventarioMaquinaria
+        fields = '__all__'
+
+class ItemFacturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemFactura
         fields = '__all__'

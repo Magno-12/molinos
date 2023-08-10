@@ -1,7 +1,10 @@
+import uuid
+from datetime import date
 from django.db import models
 
 
 class CuadroEstadistico(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     mes = models.CharField(max_length=20)
     ventas_por_mes = models.DecimalField(max_digits=10, decimal_places=2)
     ponderado_materia_prima = models.DecimalField(max_digits=10, decimal_places=2)
@@ -21,6 +24,7 @@ class CuadroEstadistico(models.Model):
 
 
 class InformeComportamiento(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     mes = models.CharField(max_length=20)
     total_maquinaria_equipo = models.DecimalField(max_digits=10, decimal_places=2)
     total_materia_prima = models.DecimalField(max_digits=10, decimal_places=2)
@@ -33,6 +37,7 @@ class InformeComportamiento(models.Model):
 
 
 class CostosProduccion(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     mes = models.CharField(max_length=20)
     costo_produccion = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -42,6 +47,7 @@ class CostosProduccion(models.Model):
 
 
 class VentasDia(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     maquinaria = models.CharField(max_length=50)
     fecha = models.DateField()
     comprobante = models.CharField(max_length=50)
@@ -55,6 +61,7 @@ class VentasDia(models.Model):
 
 
 class GastosTaller(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     taller = models.CharField(max_length=50)
     saldo_pendiente = models.DecimalField(max_digits=10, decimal_places=2)
     subtotal_compras_gastos = models.DecimalField(max_digits=10, decimal_places=2)
@@ -67,6 +74,7 @@ class GastosTaller(models.Model):
 
 
 class CajaAnticipos(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     saldo_inicial_caja = models.DecimalField(max_digits=10, decimal_places=2)
     otros_gastos = models.DecimalField(max_digits=10, decimal_places=2)
     saldo_caja_anticipos = models.DecimalField(max_digits=10, decimal_places=2)
@@ -77,6 +85,7 @@ class CajaAnticipos(models.Model):
 
 
 class ComparativoIngresosCompras(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     mes = models.CharField(max_length=20)
     ingresos = models.DecimalField(max_digits=10, decimal_places=2)
     compras = models.DecimalField(max_digits=10, decimal_places=2)
@@ -87,6 +96,7 @@ class ComparativoIngresosCompras(models.Model):
 
 
 class RegistroMaterial(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     material = models.CharField(max_length=50)
     dimensiones = models.CharField(max_length=50)
     kilogramos = models.DecimalField(max_digits=10, decimal_places=2)
@@ -97,6 +107,7 @@ class RegistroMaterial(models.Model):
 
 
 class RegistroCompra(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     centro_costos = models.CharField(max_length=50)
     fecha = models.DateField()
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
@@ -108,6 +119,7 @@ class RegistroCompra(models.Model):
 
 
 class Gasto(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     descripcion = models.CharField(max_length=100)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -117,6 +129,7 @@ class Gasto(models.Model):
 
 
 class GastoConstruccion(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     descripcion = models.CharField(max_length=100)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -126,6 +139,7 @@ class GastoConstruccion(models.Model):
 
 
 class CajaSkyCreditoSky(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     reintegros_devoluciones = models.DecimalField(max_digits=10, decimal_places=2)
     consignaciones = models.DecimalField(max_digits=10, decimal_places=2)
     prestamos = models.DecimalField(max_digits=10, decimal_places=2)
@@ -142,6 +156,7 @@ class CajaSkyCreditoSky(models.Model):
 
 
 class CarteraPagar(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nombre_persona = models.CharField(max_length=50)
     deudas_empresa = models.DecimalField(max_digits=10, decimal_places=2)
     abonos_credito = models.DecimalField(max_digits=10, decimal_places=2)
@@ -153,6 +168,7 @@ class CarteraPagar(models.Model):
 
 
 class CuentasPorPagar(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     descripcion = models.CharField(max_length=100)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -162,6 +178,7 @@ class CuentasPorPagar(models.Model):
 
 
 class SalidaMateriaPrima(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     material = models.CharField(max_length=50)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -171,6 +188,7 @@ class SalidaMateriaPrima(models.Model):
 
 
 class InventarioStock(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     material = models.CharField(max_length=50)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -180,6 +198,7 @@ class InventarioStock(models.Model):
 
 
 class EntradaMateriaPrima(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     material = models.CharField(max_length=50)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -189,6 +208,7 @@ class EntradaMateriaPrima(models.Model):
 
 
 class InventarioMaquinaria(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     maquinaria = models.CharField(max_length=50)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -198,6 +218,7 @@ class InventarioMaquinaria(models.Model):
 
 
 class OtrosInventarioStockEntra(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     descripcion = models.CharField(max_length=100)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -207,6 +228,7 @@ class OtrosInventarioStockEntra(models.Model):
 
 
 class PedidoMateriaPrima(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     material = models.CharField(max_length=50)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -216,6 +238,7 @@ class PedidoMateriaPrima(models.Model):
 
 
 class CuentasProveedores(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     proveedor = models.CharField(max_length=50)
     saldo = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -225,6 +248,7 @@ class CuentasProveedores(models.Model):
 
 
 class Cliente(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nombre = models.CharField(max_length=100, db_index=True)
     cc_nit = models.CharField(max_length=20, unique=True)
     telefono = models.CharField(max_length=30)
@@ -236,7 +260,8 @@ class Cliente(models.Model):
 
 
 class RegistroFactura(models.Model):
-    factura_id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    factura_id = models.PositiveIntegerField(unique=True)
     fecha = models.DateField()
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     valor = models.DecimalField(max_digits=20, decimal_places=2)
@@ -254,8 +279,39 @@ class RegistroFactura(models.Model):
     def __str__(self):
         return f'Factura {self.factura_id} - Cliente: {self.cliente.nombre}'
 
+class InventarioMaquinaria(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    item = models.PositiveIntegerField(verbose_name="Item", unique=True, default=0)
+    fecha = models.DateField(verbose_name="Fecha", default=date.today)
+    equipo = models.CharField(max_length=100, verbose_name="Equipo", default="")
+    marca = models.CharField(max_length=100, verbose_name="Marca", default="")
+    modelo = models.CharField(max_length=100, verbose_name="Modelo", default="")
+    descripcion = models.TextField(verbose_name="Descripcion", default="")
+    cantidad = models.PositiveIntegerField(verbose_name="Cantidad", default=0)
+    centro_costos = models.CharField(max_length=100, verbose_name="Centro de Costos", default="")
+    costo_unitario = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Costo Unitario", default=0)
+    costo_peritaje = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Costo peritaje", default=0)
+    costo_entrada = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Costo Entrada", default=0)
+
+    class Meta:
+        verbose_name = "Inventario de Maquinaria"
+        verbose_name_plural = "Inventario de Maquinarias"
+
+
+class ItemFactura(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cantidad = models.PositiveIntegerField(verbose_name="Cantidad")
+    producto = models.ForeignKey(InventarioMaquinaria, on_delete=models.CASCADE, verbose_name="Producto")
+    precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio", default=0)
+    total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Total")
+
+    def save(self, *args, **kwargs):
+        self.total = self.cantidad * self.precio
+        super(ItemFactura, self).save(*args, **kwargs)
+
 
 class RegistroCredito(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     fecha = models.DateField()
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     detalles = models.CharField(max_length=50)
@@ -275,6 +331,7 @@ class RegistroCredito(models.Model):
 
 
 class AbonosCredito(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     credito = models.ForeignKey(RegistroCredito, related_name='abonos', on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     forma_de_pago = models.CharField(max_length=20)
@@ -284,3 +341,8 @@ class AbonosCredito(models.Model):
         self.credito.abono += self.valor_abono
         self.credito.save()
         super().save(*args, **kwargs)
+
+
+class ArchivoExcel(models.Model):
+    archivo = models.FileField(upload_to='archivos_excel/', blank=True, null=True)
+    subido_en = models.DateTimeField(auto_now_add=True)
