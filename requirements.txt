@@ -1,8 +1,10 @@
 asgiref==3.7.2
+atomicwrites==1.4.1
 attrs==23.1.0
 Brotli==1.0.9
 certifi==2023.5.7
 chardet==4.0.0
+colorama==0.4.6
 dataclasses==0.6
 deprecation==2.1.0
 Django==3.2.11
@@ -18,7 +20,9 @@ httpx==0.16.1
 idna==2.10
 inflection==0.5.1
 iniconfig==2.0.0
+numpy==1.25.2
 packaging==23.1
+pandas==2.0.3
 pluggy==1.2.0
 postgrest-py==0.4.0
 psycopg2-binary==2.9.6
@@ -37,6 +41,7 @@ sqlparse==0.4.4
 supabase-py==0.0.2
 toml==0.10.2
 typing_extensions==4.7.0
+tzdata==2023.3
 uritemplate==4.1.1
 urllib3==1.26.16
 websockets==9.1
