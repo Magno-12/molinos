@@ -19,7 +19,7 @@ class ClienteSerializer(serializers.ModelSerializer):
 class RegistroFacturaSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroFactura
-        fields = ("cliente", "valor", "tipo", "forma_de_pago")
+        fields = '__all__'
 
 
 class RegistroCreditoSerializer(serializers.ModelSerializer):
@@ -49,6 +49,7 @@ class InventarioMaquinariaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ItemFacturaSerializer(serializers.ModelSerializer):
+    total = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
     class Meta:
         model = ItemFactura
-        fields = '__all__'
+        fields = ['id', 'cantidad', 'producto', 'precio', 'total']

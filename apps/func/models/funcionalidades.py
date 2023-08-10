@@ -261,7 +261,6 @@ class Cliente(models.Model):
 
 class RegistroFactura(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    factura_id = models.PositiveIntegerField(unique=True)
     fecha = models.DateField()
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     valor = models.DecimalField(max_digits=20, decimal_places=2)
@@ -304,10 +303,6 @@ class ItemFactura(models.Model):
     producto = models.ForeignKey(InventarioMaquinaria, on_delete=models.CASCADE, verbose_name="Producto")
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio", default=0)
     total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Total")
-
-    def save(self, *args, **kwargs):
-        self.total = self.cantidad * self.precio
-        super(ItemFactura, self).save(*args, **kwargs)
 
 
 class RegistroCredito(models.Model):
