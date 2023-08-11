@@ -28,7 +28,7 @@ class RegistroFacturaSerializer(serializers.ModelSerializer):
     items = ItemFacturaSerializer(many=True, write_only=True)
     class Meta:
         model = RegistroFactura
-        fields = '__all__'
+        fields = ['fecha', 'cliente', 'valor', 'tipo', 'fomra_de_pago', 'direccion']
 
     def create(self, validated_data):
         items_data = validated_data.pop('items')
