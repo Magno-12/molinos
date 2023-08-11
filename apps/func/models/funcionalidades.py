@@ -304,7 +304,7 @@ class ItemFactura(models.Model):
     add_product = models.CharField(max_length=255, verbose_name="Producto", null=True, blank=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio", default=0)
     total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Total")
-    registro_factura = models.ForeignKey(RegistroFactura, on_delete=models.CASCADE, related_name='items')
+    registro_factura = models.ForeignKey(RegistroFactura, on_delete=models.CASCADE, related_name='items', null=True, blank=True)
 
 
 class RegistroCredito(models.Model):
