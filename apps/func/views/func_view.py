@@ -13,7 +13,10 @@ from apps.func.models.funcionalidades import (
     AbonosCredito,
     ItemFactura,
     InventarioMaquinaria,
-    ArchivoExcel
+    ArchivoExcel,
+    CuadroEstadistico,
+    InformeComportamiento,
+    CostosProduccion
 )
 from apps.func.serializers.serializers import (
     ClienteSerializer,
@@ -217,3 +220,48 @@ class SubirExcelViewSet(GenericViewSet):
         archivo_excel.delete()
 
         return Response({'message': 'Archivo procesado con éxito'}, status=status.HTTP_201_CREATED)
+
+
+class FinanzasViewSet(GenericViewSet):
+
+    def list(self, request):
+
+        cuadros = CuadroEstadistico.objects.all()
+        meses = [cuadro.mes for cuadro in cuadros]
+        ventas_por_mes = [cuadro.ventas_por_mes for cuadro in cuadros]
+        ponderado_materia_prima = [cuadro.ponderado_materia_prima for cuadro in cuadros]
+        costos_produccion = [cuadro.costos_produccion for cuadro in cuadros]
+        rentabilidad_neta = [cuadro.rentabilidad_neta for cuadro in cuadros]
+
+        informes = InformeComportamiento.objects.all()
+        total_maquinaria_equipo = [informe.total_maquinaria_equipo for informe in informes]
+        total_materia_prima = [informe.total_materia_prima for informe in informes]
+
+        costos = CostosProduccion.objects.all()
+        costo_fijo = [costo.costo_fijo for costo in costos]
+        costo_variable = [costo.costo_variable for costo in costos]
+
+        total_ingresos = ventas_por_mes
+        total_egresos = [
+            ponderado + costo_prod + maquinaria + materia + fijo + variable for ponderado, costo_prod,
+            maquinaria, materia, fijo, variable in zip(
+                ponderado_materia_prima, costos_produccion, total_maquinaria_equipo, total_materia_prima,
+                costo_fijo, costo_variable
+            )
+        ]
+
+        data = {
+            "meses": meses,
+            "ventas_por_mes": ventas_por_mes,
+            "ponderado_materia_prima": ponderado_materia_prima,
+            "costos_produccion": costos_produccion,
+            "rentabilidad_neta": rentabilidad_neta,
+            "total_maquinaria_equipo": total_maquinaria_equipo,
+            "total_materia_prima": total_materia_prima,
+            "costo_fijo": costo_fijo,
+            "costo_variable": costo_variable,
+            "total_ingresos": total_ingresos,
+            "total_egresos": total_egresos
+        }
+
+        return Response(data)

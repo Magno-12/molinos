@@ -64,4 +64,3 @@ class InventarioMaquinariaSerializer(serializers.ModelSerializer):
     class Meta:
         model = InventarioMaquinaria
         fields = '__all__'
-
