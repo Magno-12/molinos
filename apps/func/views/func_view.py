@@ -16,7 +16,8 @@ from apps.func.models.funcionalidades import (
     ArchivoExcel,
     CuadroEstadistico,
     InformeComportamiento,
-    CostosProduccion
+    CostosProduccion,
+    InventarioStock
 )
 from apps.func.serializers.serializers import (
     ClienteSerializer,
@@ -24,7 +25,8 @@ from apps.func.serializers.serializers import (
     RegistroCreditoSerializer,
     AbonosCreditoSerializer,
     ItemFacturaSerializer,
-    InventarioMaquinariaSerializer
+    InventarioMaquinariaSerializer,
+    InventarioStockSerializer
 )
 
 
@@ -265,3 +267,25 @@ class FinanzasViewSet(GenericViewSet):
         }
 
         return Response(data)
+
+
+class InventarioStockViewSet(GenericViewSet):
+    queryset = InventarioStock.objects.all()
+    serializer_class = InventarioStockSerializer
+
+    def create(self, request):
+        many = isinstance(request.data, list)
+        serializer = self.serializer_class(data=request.data, many=many)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def list(self, request):
+        try:
+            queryset = self.queryset
+            serializer = self.serializer_class(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        

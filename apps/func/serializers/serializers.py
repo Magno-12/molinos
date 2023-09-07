@@ -6,7 +6,8 @@ from apps.func.models.funcionalidades import (
     RegistroCredito,
     AbonosCredito,
     ItemFactura,
-    InventarioMaquinaria
+    InventarioMaquinaria,
+    InventarioStock
 )
 
 
@@ -63,4 +64,10 @@ class AbonosCreditoSerializer(serializers.ModelSerializer):
 class InventarioMaquinariaSerializer(serializers.ModelSerializer):
     class Meta:
         model = InventarioMaquinaria
+        fields = '__all__'
+
+
+class InventarioStockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InventarioStock
         fields = '__all__'

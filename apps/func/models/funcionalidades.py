@@ -207,16 +207,6 @@ class EntradaMateriaPrima(models.Model):
         verbose_name_plural = 'Entradas de Materias Primas'
 
 
-class InventarioMaquinaria(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    maquinaria = models.CharField(max_length=50)
-    cantidad = models.DecimalField(max_digits=10, decimal_places=2)
-
-    class Meta:
-        verbose_name = 'Inventario Maquinaria'
-        verbose_name_plural = 'Inventarios Maquinaria'
-
-
 class OtrosInventarioStockEntra(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     descripcion = models.CharField(max_length=100)
