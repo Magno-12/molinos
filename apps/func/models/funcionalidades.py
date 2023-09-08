@@ -189,12 +189,26 @@ class SalidaMateriaPrima(models.Model):
 
 class InventarioStock(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    material = models.CharField(max_length=50)
-    cantidad = models.DecimalField(max_digits=10, decimal_places=2)
+    codigo = models.CharField(max_length=50)
+    descripcion = models.TextField(max_length=255, blank=True)
+    entrada_kls = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    entrada_cm = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    salida_kls = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    salida_cm = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    stock_cm = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    stock_kls = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    ponderado_stock = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
 
     class Meta:
         verbose_name = 'Inventario Stock'
         verbose_name_plural = 'Inventarios Stock'
+
+    def save(self, *args, **kwargs):
+        self.stock_cm = self.entrada_cm - self.salida_cm
+        self.stock_kls = self.entrada_kls - self.salida_kls
+        self.ponderado_stock = self.stock_kls * 4025.32
+
+        super().save(*args, **kwargs)
 
 
 class EntradaMateriaPrima(models.Model):
