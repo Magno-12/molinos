@@ -11,7 +11,8 @@ from apps.func.views.func_view import (
     ItemFacturaViewSet,
     SubirExcelViewSet,
     FinanzasViewSet,
-    InventarioStockViewSet
+    InventarioStockViewSet,
+    ResumenFinancieroViewSet
 )
 
 router = routers.DefaultRouter()
@@ -24,6 +25,7 @@ router.register(r'item_factura', ItemFacturaViewSet, basename='item_factura')
 router.register(r'subir_excel', SubirExcelViewSet, basename='subir_excel')
 router.register(r'finanzas', FinanzasViewSet, basename='finanzas')
 router.register(r'inventariostock', InventarioStockViewSet, basename='inventariostock')
+router.register(r'resumen_ingre_egre', ResumenFinancieroViewSet, basename='resumen_ingre_egre')
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -1,5 +1,6 @@
 from django.db.models import Sum
 from datetime import datetime
+import uuid
 
 from apps.func.models.funcionalidades import (
     CuadroEstadistico, InformeComportamiento, CostosProduccion, VentasDia, 
@@ -7,7 +8,7 @@ from apps.func.models.funcionalidades import (
     RegistroCompra, Gasto, GastoConstruccion, CajaSkyCreditoSky,
     CarteraPagar, CuentasPorPagar, SalidaMateriaPrima, InventarioStock, 
     EntradaMateriaPrima, InventarioMaquinaria,
-    OtrosInventarioStockEntra, PedidoMateriaPrima, CuentasProveedores
+    OtrosInventarioStockEntra, PedidoMateriaPrima, CuentasProveedores, RegistroFactura
     )
 
 def calcular_ventas_por_mes():
@@ -155,3 +156,32 @@ def calcular_total_cuentas_proveedores(proveedor):
     total_cuentas_proveedores = CuentasProveedores.objects.filter(proveedor=proveedor).\
         aggregate(total_cuentas=Sum('saldo'))
     return total_cuentas_proveedores['total_cuentas'] or 0
+
+def generar_resumen_financiero():
+    ingresos_lista = []
+    egresos_lista = []
+
+    # Obtener todos los registros de factura (ingresos)
+    registros_factura = RegistroFactura.objects.all()
+    for registro in registros_factura:
+        ingresos_lista.append({
+            "id": str(uuid.uuid4())[:6],  # Genera un ID alfanumérico corto
+            "Año": registro.fecha.year,
+            "Mes": registro.fecha.strftime('%B').lower(),  # Transforma el número del mes en el nombre del mes
+            "Valor": registro.valor
+        })
+
+    # Obtener todos los registros de compra (egresos)
+    registros_compra = RegistroCompra.objects.all()
+    for registro in registros_compra:
+        egresos_lista.append({
+            "id": str(uuid.uuid4())[:6],
+            "Año": registro.fecha.year,
+            "Mes": registro.fecha.strftime('%B').lower(),
+            "Valor": registro.total
+        })
+
+    return {
+        "ingresos": ingresos_lista,
+        "egresos": egresos_lista
+    }
