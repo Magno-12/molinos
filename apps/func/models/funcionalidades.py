@@ -191,13 +191,15 @@ class InventarioStock(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     codigo = models.CharField(max_length=50)
     descripcion = models.TextField(max_length=255, blank=True)
-    entrada_kls = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
-    entrada_cm = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
-    salida_kls = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
-    salida_cm = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
-    stock_cm = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
-    stock_kls = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
-    ponderado_stock = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    entrada_kls = models.FloatField(blank=True, default=0)
+    entrada_cm = models.FloatField(blank=True, default=0)
+    salida_kls = models.FloatField(blank=True, default=0)
+    salida_cm = models.FloatField(blank=True, default=0)
+    stock_cm = models.FloatField(blank=True, default=0)
+    stock_kls = models.FloatField(blank=True, default=0)
+    ponderado_stock = models.FloatField(blank=True, default=0)
+
+    estado = models.CharField(max_length=50, default="activo", null=False)
 
     class Meta:
         verbose_name = 'Inventario Stock'

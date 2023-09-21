@@ -165,7 +165,7 @@ def generar_resumen_financiero():
     registros_factura = RegistroFactura.objects.all()
     for registro in registros_factura:
         ingresos_lista.append({
-            "id": str(uuid.uuid4())[:6],  # Genera un ID alfanumérico corto
+            "id": str(uuid.uuid4())[:6],
             "Año": registro.fecha.year,
             "Mes": registro.fecha.strftime('%B').lower(),  # Transforma el número del mes en el nombre del mes
             "Valor": registro.valor

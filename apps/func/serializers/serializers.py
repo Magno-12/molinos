@@ -44,6 +44,8 @@ class RegistroCreditoSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroCredito
         fields = (
+            "id",
+            "fecha",
             "cliente", 
             "detalles", 
             "valor", 
